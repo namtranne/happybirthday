@@ -1,0 +1,99 @@
+const express = require("express");
+const fs = require("fs");
+const path = require("path");
+const app = express();
+const bodyParser = require("body-parser");
+
+//view engine set up
+app.set("view engine", "ejs");
+
+//app configuration
+app.use(express.static(path.join(__dirname, "public")));
+
+// Middleware to parse JSON data
+app.use(bodyParser.json());
+
+function turnOff() {
+  fs.writeFile("state.txt", "off", (err) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(`Data written to state.txt`);
+    }
+  });
+}
+
+function decrease() {
+  fs.readFile("state.txt", "utf8", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading file");
+    } else {
+      const newData = String(Number(data) - 1);
+      fs.writeFile("state.txt", newData, (err) => {
+        if (err) {
+          console.error(err);
+        } else {
+          console.log(`Data written to state.txt`);
+        }
+      });
+    }
+  });
+}
+
+function getPrize() {
+  return new Promise((resolve, reject) => {
+    fs.readFile("prize.txt", "utf8", (err, data) => {
+      if (err) {
+        res.status(500).send("Error reading file");
+      } else {
+        //   res.set("Content-Type", "text/plain");
+        resolve(data);
+      }
+    });
+  });
+}
+
+function savePrize(prize) {
+  fs.writeFile("prize.txt", prize, (err) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(`Data written to state.txt`);
+    }
+  });
+}
+
+app.get("/", async (req, res) => {
+  let prize = await getPrize();
+  fs.readFile("state.txt", "utf8", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading file");
+    } else {
+      //   res.set("Content-Type", "text/plain");
+      res.render("index", { data: data, prize });
+    }
+  });
+});
+
+app.post("/prize/save", (req, res) => {
+  const receivedData = req.body;
+  savePrize(receivedData.myString);
+  res.sendStatus(200);
+});
+
+app.get("/state/change", (req, res) => {
+  fs.readFile("state.txt", "utf8", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading file");
+    } else {
+      if (data > 0) {
+        decrease();
+      }
+      res.send(data);
+    }
+  });
+});
+
+app.listen(3000, () => {
+  console.log("Server started on port 3000");
+});

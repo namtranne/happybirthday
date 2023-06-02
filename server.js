@@ -94,6 +94,28 @@ app.get("/state/change", (req, res) => {
   });
 });
 
+app.get("/chance/update/:chanceNumber", (req, res) => {
+  const chanceNumber = req.params.chanceNumber;
+  fs.writeFile("state.txt", chanceNumber, (err) => {
+    if (err) {
+      res.status(500).send("Error writting file");
+    } else {
+      res.status(200).send("Writting success");
+    }
+  });
+});
+
+app.get("/prize/update/:prize", (req, res) => {
+  const prize = req.params.prize;
+  fs.writeFile("prize.txt", "/images/" + prize + ".png", (err) => {
+    if (err) {
+      res.status(500).send("Error writting file");
+    } else {
+      res.status(200).send("Writting success");
+    }
+  });
+});
+
 app.listen(3000, () => {
   console.log("Server started on port 3000");
 });

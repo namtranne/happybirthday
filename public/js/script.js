@@ -177,3 +177,24 @@ spinBtn.addEventListener("click", () => {
       }
     });
 });
+
+const updateChance = (chanceNumber) => {
+  fetch("/chance/update/" + chanceNumber).then((res, err) => {
+    if (res.status == 200) {
+      window.location.reload();
+    } else {
+      console.log(res.statusText);
+    }
+  });
+};
+
+const updatePrize = (prize) => {
+  console.log(123);
+  fetch("/prize/update/" + prize).then((res, err) => {
+    if (res.status == 200) {
+      window.location.reload();
+    } else {
+      console.log(res.statusText);
+    }
+  });
+};

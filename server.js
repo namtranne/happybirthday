@@ -4,8 +4,14 @@ const path = require("path");
 const app = express();
 const bodyParser = require("body-parser");
 
+const prizeUrl = {
+  teddy: "https://i.imgur.com/KVLJTNC.png",
+  keychain: "https://i.imgur.com/pgqjQmV.png",
+  mask: "https://i.imgur.com/B8dBy4U.png",
+};
+
 //view engine set up
-app.set("view engine", "ejs");
+https: app.set("view engine", "ejs");
 
 //app configuration
 app.use(express.static(path.join(__dirname, "public")));
@@ -107,7 +113,7 @@ app.get("/chance/update/:chanceNumber", (req, res) => {
 
 app.get("/prize/update/:prize", (req, res) => {
   const prize = req.params.prize;
-  fs.writeFile("prize.txt", "/images/" + prize + ".png", (err) => {
+  fs.writeFile("prize.txt", prizeUrl.prize, (err) => {
     if (err) {
       res.status(500).send("Error writting file");
     } else {

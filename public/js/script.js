@@ -72,32 +72,32 @@ const config = {
         render: "image",
         images: [
           {
-            src: "/images/teddy.png",
+            src: "https://i.imgur.com/KVLJTNC.png",
             width: 60,
             height: 60,
           },
           {
-            src: "/images/mask.png",
+            src: "https://i.imgur.com/B8dBy4U.png",
             width: 60,
             height: 60,
           },
           {
-            src: "/images/keychain.png",
+            src: "https://i.imgur.com/pgqjQmV.png",
             width: 60,
             height: 60,
           },
           {
-            src: "/images/teddy.png",
+            src: "https://i.imgur.com/KVLJTNC.png",
             width: 60,
             height: 60,
           },
           {
-            src: "/images/mask.png",
+            src: "https://i.imgur.com/B8dBy4U.png",
             width: 60,
             height: 60,
           },
           {
-            src: "/images/keychain.png",
+            src: "https://i.imgur.com/pgqjQmV.png",
             width: 60,
             height: 60,
           },
